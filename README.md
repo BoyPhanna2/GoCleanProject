@@ -18,6 +18,20 @@ This is a complete, runnable Go backend example project using:
    ```
 5. The application will automatically create `myapp.db` and start serving on `:8080` (or `PORT` from `.env`).
 
+## Configuration (.env)
+
+You can customize the application behavior by creating a `.env` file in the root directory:
+
+```env
+PORT=8080
+BASE_URL=http://localhost:8080   # Used dynamically for Swagger UI requests
+DB_PATH=myapp.db
+JWT_SECRET=supersecretkey
+LOG_DIR=logs
+```
+
+**Note on Swagger UI:** The application serves interactive API documentation at `/swagger`. The server dynamically injects the `BASE_URL` from your `.env` into the `swagger.yaml` file so that the "Try it out" feature works in any environment (local, staging, or production).
+
 ## Docker Deployment
 
 To build and run this application using Docker:

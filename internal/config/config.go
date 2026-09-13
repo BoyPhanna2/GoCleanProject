@@ -9,6 +9,7 @@ import (
 
 type Config struct {
 	ServerPort string
+	BaseURL    string
 	DBPath     string
 	JWTSecret  string
 	LogDir     string
@@ -21,6 +22,11 @@ func LoadConfig() (*Config, error) {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
+	}
+
+	baseURL := os.Getenv("BASE_URL")
+	if baseURL == "" {
+		baseURL = "http://localhost:" + port
 	}
 
 	dbPath := os.Getenv("DB_PATH")
@@ -40,6 +46,7 @@ func LoadConfig() (*Config, error) {
 
 	return &Config{
 		ServerPort: port,
+		BaseURL:    baseURL,
 		DBPath:     dbPath,
 		JWTSecret:  jwtSecret,
 		LogDir:     logDir,

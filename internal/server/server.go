@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"os"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -36,7 +38,7 @@ const swaggerHTML = `<!DOCTYPE html>
 </body>
 </html>`
 
-func NewGinEngine(logger *zap.Logger) *gin.Engine {
+func NewGinEngine(logger *zap.Logger, cfg *config.Config) *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	r := gin.New()
 
@@ -45,8 +47,17 @@ func NewGinEngine(logger *zap.Logger) *gin.Engine {
 	r.Use(sharedMiddleware.CORSMiddleware())
 	r.Use(sharedMiddleware.ErrorHandler())
 
-	// Serve the swagger YAML file statically
-	r.StaticFile("/swagger.yaml", "./swagger.yaml")
+	// Serve the swagger YAML file dynamically with replaced BASE_URL
+	r.GET("/swagger.yaml", func(c *gin.Context) {
+		content, err := os.ReadFile("./swagger.yaml")
+		if err != nil {
+			c.String(http.StatusInternalServerError, "failed to read swagger file")
+			return
+		}
+		
+		replaced := strings.ReplaceAll(string(content), "${BASE_URL}", cfg.BaseURL)
+		c.Data(http.StatusOK, "application/yaml", []byte(replaced))
+	})
 
 	// Serve the swagger UI interface
 	r.GET("/swagger", func(c *gin.Context) {

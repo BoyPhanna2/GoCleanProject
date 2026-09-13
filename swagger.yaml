@@ -4,8 +4,8 @@ info:
   description: API documentation for Auth and Todo features
   version: 1.0.0
 servers:
-  - url: http://localhost:8080
-    description: Local server
+  - url: ${BASE_URL}
+    description: Dynamic server
 paths:
   /api/v1/auth/register:
     post:
