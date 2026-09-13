@@ -24,7 +24,7 @@ You can customize the application behavior by creating a `.env` file in the root
 
 ```env
 PORT=8080
-BASE_URL=http://localhost:8080   # Used dynamically for Swagger UI requests
+BASE_URL=/   # Used dynamically for Swagger UI requests (defaults to '/' for relative path)
 DB_PATH=myapp.db
 JWT_SECRET=supersecretkey
 LOG_DIR=logs
@@ -42,14 +42,17 @@ To build and run this application using Docker:
    ```
 
 2. **Run the container:**
+
+   **On Linux/macOS (bash/zsh):**
    ```bash
-   docker run -p 8080:8080 \
-     -v $(pwd)/data:/data \
-     -v $(pwd)/logs:/logs \
-     -e JWT_SECRET=your_super_secret_key \
-     myapp-api
+   docker run -p 8080:8080 -v "$(pwd)/data:/data" -v "$(pwd)/logs:/logs" -e JWT_SECRET=your_super_secret_key myapp-api
    ```
-   *Note: We mount `/data` and `/logs` as volumes so your SQLite database and log files persist even if the container stops.*
+
+   **On Windows (PowerShell):**
+   ```powershell
+   docker run -p 8080:8080 -v "${PWD}/data:/data" -v "${PWD}/logs:/logs" -e JWT_SECRET=your_super_secret_key myapp-api
+   ```
+   *Note: We mount `/data` and `/logs` as volumes so your SQLite database and log files persist even if the container stops. We use quotes to ensure paths with spaces are handled correctly.*
 
 ## Logs
 

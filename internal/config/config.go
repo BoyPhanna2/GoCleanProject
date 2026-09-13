@@ -26,7 +26,7 @@ func LoadConfig() (*Config, error) {
 
 	baseURL := os.Getenv("BASE_URL")
 	if baseURL == "" {
-		baseURL = "http://localhost:" + port
+		baseURL = "/"
 	}
 
 	dbPath := os.Getenv("DB_PATH")
