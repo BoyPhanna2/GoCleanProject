@@ -34,25 +34,36 @@ LOG_DIR=logs
 
 ## Docker Deployment
 
-To build and run this application using Docker:
+You can either run the pre-built image from Docker Hub or build it locally.
+
+### Option 1: Use Pre-built Image (Recommended)
+
+1. **Pull the image:**
+   ```bash
+   docker pull kamakorcode/go-todo:latest
+   ```
+
+### Option 2: Build Locally
 
 1. **Build the image:**
    ```bash
-   docker build -t myapp-api .
+   docker build -t kamakorcode/go-todo:latest .
    ```
 
-2. **Run the container:**
+### Run the Container
 
-   **On Linux/macOS (bash/zsh):**
-   ```bash
-   docker run -p 8080:8080 -v "$(pwd)/data:/data" -v "$(pwd)/logs:/logs" -e JWT_SECRET=your_super_secret_key myapp-api
-   ```
+Once you have the image (either pulled or built), you can run it:
 
-   **On Windows (PowerShell):**
-   ```powershell
-   docker run -p 8080:8080 -v "${PWD}/data:/data" -v "${PWD}/logs:/logs" -e JWT_SECRET=your_super_secret_key myapp-api
-   ```
-   *Note: We mount `/data` and `/logs` as volumes so your SQLite database and log files persist even if the container stops. We use quotes to ensure paths with spaces are handled correctly.*
+**On Linux/macOS (bash/zsh):**
+```bash
+docker run -p 8080:8080 -v "$(pwd)/data:/data" -v "$(pwd)/logs:/logs" -e JWT_SECRET=your_super_secret_key kamakorcode/go-todo:latest
+```
+
+**On Windows (PowerShell):**
+```powershell
+docker run -p 8080:8080 -v "${PWD}/data:/data" -v "${PWD}/logs:/logs" -e JWT_SECRET=your_super_secret_key kamakorcode/go-todo:latest
+```
+*Note: We mount `/data` and `/logs` as volumes so your SQLite database and log files persist even if the container stops. We use quotes to ensure paths with spaces are handled correctly.*
 
 ## Logs
 
