@@ -1,0 +1,16 @@
+.git
+.gitignore
+.env
+.vscode/
+
+# Local database
+myapp.db
+myapp.db-shm
+myapp.db-wal
+/data/
+
+# Local logs
+/logs/
+
+# Build artifacts
+myapp

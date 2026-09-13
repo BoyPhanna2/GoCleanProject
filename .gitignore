@@ -1,0 +1,13 @@
+# Environment Variables
+.env
+
+# SQLite Database
+myapp.db
+myapp.db-shm
+myapp.db-wal
+
+# Logs
+logs/
+
+# Go builds
+myapp
